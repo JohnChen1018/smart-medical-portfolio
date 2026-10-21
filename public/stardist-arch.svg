@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" fill="none">
+  <rect width="640" height="360" rx="16" fill="#0F172A"/>
+  <text x="320" y="34" text-anchor="middle" fill="#C4B5FD" font-size="16" font-weight="700">StarDist 2D ��U-Net + b��b8�	</text>
+  <rect x="24" y="70" width="120" height="220" rx="10" fill="#111827" stroke="#374151"/>
+  <text x="84" y="96" text-anchor="middle" fill="#9CA3AF" font-size="12">8e patch</text>
+  <text x="84" y="118" text-anchor="middle" fill="#22D3EE" font-size="11">256�256 RGB</text>
+  <rect x="170" y="90" width="130" height="180" rx="10" fill="#241b52" stroke="#8B5CF6"/>
+  <text x="235" y="118" text-anchor="middle" fill="#E6EDF3" font-size="13" font-weight="700">U-Net �y</text>
+  <text x="235" y="142" text-anchor="middle" fill="#BFD2EA" font-size="11">Encoder / Decoder</text>
+  <text x="235" y="164" text-anchor="middle" fill="#BFD2EA" font-size="11">Skip connections</text>
+  <text x="235" y="196" text-anchor="middle" fill="#9CA3AF" font-size="10">n_filter_base</text>
+  <text x="235" y="214" text-anchor="middle" fill="#9CA3AF" font-size="10">net_conv_after_unet</text>
+  <rect x="330" y="78" width="110" height="70" rx="8" fill="#0c3b47" stroke="#22D3EE"/>
+  <text x="385" y="104" text-anchor="middle" fill="#22D3EE" font-size="11" font-weight="700">Prob Head</text>
+  <text x="385" y="124" text-anchor="middle" fill="#BFD2EA" font-size="10">i�X(_�</text>
+  <rect x="330" y="162" width="110" height="70" rx="8" fill="#0c3b47" stroke="#22D3EE"/>
+  <text x="385" y="188" text-anchor="middle" fill="#22D3EE" font-size="11" font-weight="700">Dist Head</text>
+  <text x="385" y="208" text-anchor="middle" fill="#BFD2EA" font-size="10">n_rays >��</text>
+  <rect x="330" y="246" width="110" height="44" rx="8" fill="#0c3b47" stroke="#22D3EE"/>
+  <text x="385" y="272" text-anchor="middle" fill="#22D3EE" font-size="11" font-weight="700">Type Head</text>
+  <text x="385" y="286" text-anchor="middle" fill="#BFD2EA" font-size="9">6 ^0�8</text>
+  <path d="M144 180 H170" stroke="#6B7280" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M300 130 H330" stroke="#6B7280" stroke-width="2"/>
+  <path d="M300 180 H330" stroke="#6B7280" stroke-width="2"/>
+  <path d="M300 268 H330" stroke="#6B7280" stroke-width="2"/>
+  <rect x="470" y="110" width="146" height="140" rx="10" fill="#111827" stroke="#8B5CF6"/>
+  <circle cx="543" cy="165" r="5" fill="#22D3EE"/>
+  <polygon points="543,165 580,150 595,175 585,205 550,210 520,190" fill="rgba(139,92,246,0.2)" stroke="#C4B5FD" stroke-width="2"/>
+  <text x="543" y="250" text-anchor="middle" fill="#E6EDF3" font-size="12" font-weight="700">Instance 8�</text>
+  <text x="543" y="270" text-anchor="middle" fill="#9CA3AF" font-size="10">�b + ^%</text>
+  <path d="M440 145 H470" stroke="#6B7280" stroke-width="2"/>
+  <path d="M440 197 H470" stroke="#6B7280" stroke-width="2"/>
+  <path d="M440 268 H470" stroke="#6B7280" stroke-width="2"/>
+  <text x="320" y="338" text-anchor="middle" fill="#6B7280" font-size="11">ǙAq� � y��� � _� / �� / ^% � 0�8�r</text>
+</svg>

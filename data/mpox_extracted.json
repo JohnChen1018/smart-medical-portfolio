@@ -1,0 +1,483 @@
+{
+  "pptx_slides": [
+    {
+      "slide": "ppt/slides/slide1.xml",
+      "text": [
+        "臺北醫",
+        "學大",
+        "學",
+        "醫學工",
+        "程學",
+        "院",
+        "全國醫學工程創意競賽",
+        "隊伍",
+        "編",
+        "號",
+        "：",
+        "大專",
+        "組",
+        "(",
+        "註：回信提供之編號，如大專組",
+        "002-",
+        "001)",
+        "作品",
+        "名",
+        "稱",
+        "：",
+        "基於遷移學習的猴痘辨識",
+        "請務必勾選技術公開的狀態",
+        "主辦單位：臺北醫學大學醫學工程學院",
+        "協辦單位：臺北醫學大學跨領域學院、臺北醫學大學創新創業教育中心、博而美國際股份有限公司、臺北醫學大學生醫器材研究中心",
+        "指導單位：臺北醫學大學、教育部「精準健康產業跨領域人才培育計",
+        "畫」。",
+        "申請中",
+        "公開",
+        "公告",
+        "(",
+        "專利",
+        ")",
+        "無",
+        "發表文獻",
+        "專利",
+        "其他",
+        "：",
+        "作品雛型已投稿",
+        "未發表"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide2.xml",
+      "text": [
+        "目錄",
+        "摘要",
+        "運用技術",
+        "應用潛能分析",
+        "作品圖說",
+        "參考文獻"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide3.xml",
+      "text": [
+        "摘要"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide4.xml",
+      "text": [
+        "Kaggle",
+        "公開數據集",
+        "Mpox Skin Lesion Dataset",
+        "使用",
+        "Matlab2024b",
+        "上最小的兩個架構",
+        "(MobileNet-V2,",
+        "ShuffleNet",
+        ")",
+        "搭配",
+        "2",
+        "個優化器",
+        "(ADAM, SGDM)",
+        "進行訓練",
+        ".",
+        "14",
+        "模擬",
+        "建模",
+        "資料",
+        "應用",
+        "工作流程",
+        "小規模模擬中",
+        ",",
+        "477",
+        "個參數組合，共訓練",
+        "4770",
+        "次",
+        ". MobileNet-V2 with",
+        "adam",
+        "優化器最高的平均準確率為",
+        "(",
+        "96.91%",
+        ")",
+        "，在進行",
+        "500",
+        "次的大規模訓練以確保模型的穩定性並且達到",
+        "(",
+        "96.776%)",
+        "的平均準確率。",
+        "分析",
+        "猴痘辨識",
+        "(",
+        "兩分類",
+        ")",
+        "模型的餐數量小於",
+        "Q1",
+        "論文",
+        "[1]8.3",
+        "倍並且準確率接近"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide5.xml",
+      "text": [
+        "研究背景",
+        "猴痘為全球公共衛生威脅，世界衛生組織已宣布其為公共衛生緊急事件，截至",
+        "2024",
+        "年中全球病例接近",
+        "10",
+        "萬例。本研究使用輕量模型開發自動化檢測解決方案，取代傳統需臨床觀察與實驗室檢測的方式",
+        "。"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide6.xml",
+      "text": [
+        "資料集",
+        "本研究使用",
+        "Kaggle Mpox Skin Lesion",
+        "Dataset（增強影像版本",
+        "），",
+        "並採用",
+        "80/20",
+        "的訓練",
+        "/",
+        "測試切分方式，以利與前人研究直接比較",
+        "。"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide7.xml",
+      "text": [
+        "網路架構",
+        "初步測試顯示",
+        "MobileNet-V2",
+        "搭配",
+        "Adam",
+        "最佳化器表現最佳。因其僅有",
+        "2.6",
+        "百萬參數，具輕量優勢，因此用於最終分類任務",
+        "。"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide8.xml",
+      "text": [
+        "提出的方法",
+        "本研究比較",
+        "MobileNet-V2 與",
+        "ShuffleNet，搭配",
+        "Adam 與 SGDM，",
+        "進行",
+        "參數的調整，",
+        "總共進行",
+        "4,770",
+        "次訓練",
+        "。",
+        "Network",
+        "Architecture",
+        "Optimizer",
+        "Runs",
+        "MobileNet-",
+        "V2",
+        "Adam",
+        "870",
+        "MobileNet-",
+        "V2",
+        "SGDM",
+        "1,600",
+        "Network",
+        "Architecture",
+        "Optimizer",
+        "Runs",
+        "ShuffleNet",
+        "Adam",
+        "680",
+        "ShuffleNet",
+        "SGDM",
+        "1,620"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide9.xml",
+      "text": [
+        "單次最佳表現",
+        "4,770 次訓練中，單次表現最佳結果達到 97.65% 測試準確率。",
+        "Metric",
+        "Value",
+        "Train Accuracy",
+        "100.0%",
+        "Test Accuracy",
+        "97.65",
+        "AUC",
+        "0.996",
+        "Precision",
+        "0.97",
+        "Recall",
+        "0.97",
+        "F1 Score",
+        "0.97",
+        "Loss",
+        "0.015"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide10.xml",
+      "text": [
+        "平均結果",
+        "進行",
+        "477",
+        "個組合的訓練後",
+        "後，",
+        "選出最佳組合的",
+        "10run",
+        "訓練，",
+        "MobileNet-V2",
+        "表現優於",
+        "ShuffleNet",
+        "。",
+        "Metric",
+        "Value",
+        "Standard Deviation",
+        "Train Accuracy",
+        "100%",
+        "±0.35%",
+        "Test Accuracy",
+        "96.91%",
+        "±0.09%",
+        "AUC",
+        "0.9956",
+        "±0.0033",
+        "Precision",
+        "0.9705",
+        "±0.0036",
+        "Recall",
+        "0.9674",
+        "±0.0039",
+        "F1 Score",
+        "0.9689",
+        "±0.0035",
+        "Loss",
+        "0.0026",
+        "±0.0045"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide11.xml",
+      "text": [
+        "混淆矩陣",
+        "這是",
+        "10",
+        "次最佳訓練的平均結果，顯示模型具有穩定分類能力",
+        "。"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide12.xml",
+      "text": [
+        "500 次平均結果",
+        "在最佳配置下進行 500 次獨立訓練，以下為模型整體表現平均結果。",
+        "Metric",
+        "Value",
+        "Standard",
+        "Deviation",
+        "Train",
+        "Accuracy",
+        "100%",
+        "±0.00%",
+        "Test",
+        "Accuracy",
+        "96.776%",
+        "±0.4716%",
+        "AUC",
+        "0.9955",
+        "±0.0011",
+        "Precision",
+        "0.9692",
+        "±0.0050",
+        "Recall",
+        "0.9634",
+        "±0.0053",
+        "F1",
+        "Score",
+        "0.9675",
+        "±0.0051",
+        "Loss",
+        "0.0018",
+        "±0.0039"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide13.xml",
+      "text": [
+        "應用潛能分析",
+        "更高準確率",
+        "-",
+        "強調",
+        "96.77%",
+        "高出",
+        "6.77%",
+        "的優勢",
+        "更輕量快速",
+        "-",
+        "整合了輕量化、移動",
+        "端優化、省電",
+        "等所有效能",
+        "優勢"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide14.xml",
+      "text": [
+        "效能",
+        "比較",
+        "與分析",
+        "MobileNet-V2",
+        "模型參數：",
+        "2.6",
+        "百萬",
+        "論文",
+        "[1]",
+        "參數量",
+        "21.8M",
+        "500RUN",
+        "平均準確度：",
+        "96.776%",
+        "跟論文比較小於",
+        "8.3",
+        "倍"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide15.xml",
+      "text": [
+        "結論與未來展望",
+        "本研究證實",
+        "MobileNet-V2",
+        "模型在無需圖像前處理情況下，僅使用",
+        "2.6",
+        "百萬參數即可達成平均",
+        "96.91%",
+        "（最高",
+        "97.65%",
+        "）的準確率。",
+        "未來計畫結合各個性病，各個資料模態，做出一個多擬態的皮膚性病系統。"
+      ]
+    },
+    {
+      "slide": "ppt/slides/slide16.xml",
+      "text": [
+        "參考文獻",
+        "[",
+        "1] Yasmin, F., Hassan, M. M., Hasan, M., Zaman, S., Kaushal, C., El-Shafai, W., & Soliman, N. F. (2023). PoxNet22: A fine-tuned model for the classification of monkeypox disease using transfer learning.",
+        "Ieee",
+        "Access",
+        ",",
+        "11",
+        ", 24053-24076.",
+        "[2] Ali, S. N., Ahmed, M. T., Jahan, T., Paul, J., Sani, S. S., Noor, N., ... & Hasan, T. (2024). A web-based mpox skin lesion detection system using state-of-the-art deep learning models considering racial diversity.",
+        "Biomedical Signal Processing and Control",
+        ",",
+        "98",
+        ", 106742.",
+        "[3] Yeboah, B. A., Micah, K. S., Acquah, I., & Mensah, K. A. (2025). A hybrid long short-term memory-convolutional neural network multi-stream deep learning model with Convolutional Block Attention Module incorporated for monkeypox detection.",
+        "Science Progress",
+        ",",
+        "108",
+        "(1), 00368504251331706."
+      ]
+    }
+  ],
+  "pdf_pages": [
+    {
+      "page": 1,
+      "text": ""
+    },
+    {
+      "page": 2,
+      "text": ""
+    },
+    {
+      "page": 3,
+      "text": ""
+    },
+    {
+      "page": 4,
+      "text": ""
+    },
+    {
+      "page": 5,
+      "text": ""
+    },
+    {
+      "page": 6,
+      "text": ""
+    },
+    {
+      "page": 7,
+      "text": ""
+    },
+    {
+      "page": 8,
+      "text": ""
+    },
+    {
+      "page": 9,
+      "text": ""
+    },
+    {
+      "page": 10,
+      "text": ""
+    },
+    {
+      "page": 11,
+      "text": ""
+    },
+    {
+      "page": 12,
+      "text": ""
+    },
+    {
+      "page": 13,
+      "text": ""
+    },
+    {
+      "page": 14,
+      "text": ""
+    },
+    {
+      "page": 15,
+      "text": ""
+    },
+    {
+      "page": 16,
+      "text": ""
+    },
+    {
+      "page": 17,
+      "text": ""
+    },
+    {
+      "page": 18,
+      "text": ""
+    },
+    {
+      "page": 19,
+      "text": ""
+    },
+    {
+      "page": 20,
+      "text": ""
+    },
+    {
+      "page": 21,
+      "text": ""
+    },
+    {
+      "page": 22,
+      "text": ""
+    },
+    {
+      "page": 23,
+      "text": ""
+    }
+  ]
+}

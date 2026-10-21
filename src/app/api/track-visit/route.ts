@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from "@/lib/prisma";
+import { allowRequest, clientAddress, isPlainIp } from "@/lib/security";
+import { deviceFromRequest } from "@/lib/device";
 
 interface GeoLocationData {
   country: string;
@@ -7,8 +9,9 @@ interface GeoLocationData {
 }
 
 async function getIpLocation(ip: string): Promise<GeoLocationData | null> {
+  if (!isPlainIp(ip)) return null;
   try {
-    const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,city`);
+    const response = await fetch(`https://ip-api.com/json/${encodeURIComponent(ip)}?fields=status,country,city`);
     const data = await response.json();
     
     if (data.status === 'success') {
@@ -40,6 +43,9 @@ function getClientIp(request: Request): string | null {
 }
 
 export async function POST(request: Request) {
+  if (!allowRequest(`visit:${clientAddress(request)}`, 60, 60 * 60 * 1000)) {
+    return NextResponse.json({ success: true });
+  }
   try {
     const text = await request.text();
     if (!text) {
@@ -58,6 +64,7 @@ export async function POST(request: Request) {
     const { path } = body;
     const date = new Date().toISOString().split("T")[0];
     const ipAddress = getClientIp(request) || 'unknown';
+    const device = deviceFromRequest(request) || null;
 
     let country: string | null = null;
     let city: string | null = null;
@@ -82,6 +89,7 @@ export async function POST(request: Request) {
         count: {
           increment: 1,
         },
+        device,
       },
       create: {
         ipAddress: ipAddress,
@@ -90,6 +98,7 @@ export async function POST(request: Request) {
         count: 1,
         country: country,
         city: city,
+        device,
       },
     });
 

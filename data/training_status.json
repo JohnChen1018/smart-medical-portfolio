@@ -1,0 +1,14 @@
+{
+  "connected": false,
+  "machine": "尚未連線",
+  "framework": "PyTorch",
+  "currentConfig": "-",
+  "run": 0,
+  "totalRuns": 10,
+  "epoch": 0,
+  "totalEpochs": 50,
+  "elapsedSeconds": 0,
+  "status": "idle",
+  "note": "目前沒有訓練程式在跑。有訓練時，VS Code 腳本會即時寫入此檔。",
+  "updatedAt": null
+}

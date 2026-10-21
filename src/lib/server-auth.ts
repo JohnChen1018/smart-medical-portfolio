@@ -21,7 +21,8 @@ function generateToken(): string {
  * @returns Hex signature string
  */
 async function signSession(session: Omit<Session, "signature">): Promise<string> {
-  const secret = process.env.SESSION_SECRET || "fallback-secret-change-in-production";
+  const secret = process.env.SESSION_SECRET || "";
+  if (secret.length < 16) throw new Error("SESSION_SECRET 未設定");
   const data = `${session.userId}:${session.token}:${session.expiresAt}`;
 
   const encoder = new TextEncoder();

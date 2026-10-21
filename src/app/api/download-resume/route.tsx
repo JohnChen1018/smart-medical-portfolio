@@ -165,12 +165,11 @@ export async function GET(request: Request) {
     linkedinUrl: profile.linkedinUrl ?? undefined,
     whatsappUrl: profile.whatsappUrl ?? undefined,
   } : {
-      name: "J Avindu Lakshan De Silva",
-      title: "DevOps Engineer & Full Stack Developer",
-      bio: "I'm Lakshan — an automation-focused DevOps engineer with a fixer's mindset. At my core, I'm someone who can't ignore broken things. If a service throws a warning, I want to know why. If something fails, my instinct is to trace it, understand it and make sure it doesn't fail the same way again. I value speed with control, not panic-driven changes.",
-      email: "lakshandesilva112@gmail.com",
-      phone: "+94717678199",
-      address: "4C1, Ballawila, Kosmulla, Neluwa, Galle. 80082",
+      name: "",
+      title: "",
+      bio: "",
+      email: "",
+      phone: "",
     };
 
   // Get base URL from request headers

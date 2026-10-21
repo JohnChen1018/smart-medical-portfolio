@@ -82,19 +82,12 @@ const defaultSettings: AboutSettings = {
     letsConnect: { enabled: true, title: "Let's Connect", icon: "M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" }
   },
   hero: {
-    profileImage: "/myself.jpeg",
+    profileImage: "",
     availabilityBadge: {
-      enabled: true,
-      text: "Available for Work"
+      enabled: false,
+      text: ""
     },
-    terminalBio: [
-      "$ whoami",
-      "> DevOps Engineer | Cloud Specialist | Automation Expert",
-      "$ cat philosophy.txt",
-      "> I don't ignore broken things. I fix them.",
-      "$ systemctl status my-mindset",
-      "> ● Active: Fixer mode | Automation: enabled | Learning: 24/7"
-    ]
+    terminalBio: []
   },
   stats: [
     {
@@ -135,10 +128,10 @@ const defaultSettings: AboutSettings = {
     }
   },
   letsConnect: {
-    email: { enabled: true, address: "lakshandesilva112@gmail.com" },
-    linkedin: { enabled: true, address: "https://linkedin.com/in/username" },
-    github: { enabled: true, address: "https://github.com/username" },
-    whatsapp: { enabled: true, address: "https://wa.me/1234567890" }
+    email: { enabled: false, address: "" },
+    linkedin: { enabled: false, address: "" },
+    github: { enabled: false, address: "" },
+    whatsapp: { enabled: false, address: "" }
   }
 };
 
@@ -153,7 +146,7 @@ export default function AdminAboutSettings() {
   const [modalSection, setModalSection] = useState<string | null>(null);
   const [modalData, setModalData] = useState<any>(null);
   const [profileId, setProfileId] = useState<string>("");
-  const [jobTitle, setJobTitle] = useState<string>("Full Stack Developer & DevOps Engineer");
+  const [jobTitle, setJobTitle] = useState<string>("");
 
   const loadSettings = async () => {
     setIsLoading(true);
@@ -166,15 +159,15 @@ export default function AdminAboutSettings() {
       if (settingsRes.ok) {
         const data = await settingsRes.json();
         setSettings(data);
-        setTerminalInput(data.hero.terminalBio.join('\n'));
-        setImagePreview(data.hero.profileImage);
+        setTerminalInput((data.hero?.terminalBio || []).join('\n'));
+        setImagePreview(data.hero?.profileImage || "");
       }
       
       if (profileRes.ok) {
         const profileData = await profileRes.json();
         if (profileData.profile) {
           setProfileId(profileData.profile.id);
-          setJobTitle(profileData.profile.title || "Full Stack Developer & DevOps Engineer");
+          setJobTitle(profileData.profile.title || "");
         }
       }
     } catch (error) {

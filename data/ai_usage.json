@@ -1,0 +1,18 @@
+{
+  "days": {
+    "2026-07-09": {
+      "gemini": {
+        "usedTokens": 1200,
+        "requestCount": 1,
+        "updatedAt": "2026-07-09T04:35:21.972Z"
+      }
+    },
+    "2026-10-08": {
+      "cursor": {
+        "usedTokens": 826,
+        "requestCount": 1,
+        "updatedAt": "2026-10-08T05:17:23.399Z"
+      }
+    }
+  }
+}

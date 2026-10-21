@@ -109,8 +109,6 @@ export async function POST(request: Request) {
   try {
     const { code, tempId, csrfToken } = await request.json();
 
-    console.log("[LOGIN DEBUG] Received login request:", { code: code ? "***" : "none", tempId, hasCSRF: !!csrfToken });
-
     // Get client IP for rate limiting
     const ip = request.headers.get("x-forwarded-for") ||
                request.headers.get("x-real-ip") ||
@@ -118,16 +116,11 @@ export async function POST(request: Request) {
 
     const userAgent = request.headers.get("user-agent") || undefined;
 
-    console.log("[LOGIN DEBUG] Client info:", { ip, userAgent });
-
     // Validate CSRF token
     const cookieStore = await cookies();
     const storedCSRFToken = cookieStore.get("csrf_token")?.value;
 
-    console.log("[LOGIN DEBUG] CSRF check:", { hasToken: !!csrfToken, hasStored: !!storedCSRFToken });
-
     if (!csrfToken || !storedCSRFToken || !validateCSRFToken(csrfToken, storedCSRFToken)) {
-      console.log("[LOGIN DEBUG] CSRF validation failed");
       logCSRFValidationFailed(ip, userAgent);
       return NextResponse.json(
         { success: false, error: "Invalid CSRF token" },
@@ -137,7 +130,6 @@ export async function POST(request: Request) {
 
     // Validate OTP code format
     if (!code || code.length !== 6 || !/^\d+$/.test(code)) {
-      console.log("[LOGIN DEBUG] Invalid OTP format");
       logLoginFailure(ip, "Invalid OTP format", userAgent);
       return NextResponse.json(
         { success: false, error: "Invalid OTP code" },
@@ -147,10 +139,8 @@ export async function POST(request: Request) {
 
     // Check rate limit
     const rateLimitResult = checkRateLimit(ip);
-    console.log("[LOGIN DEBUG] Rate limit check:", { allowed: rateLimitResult });
 
     if (!rateLimitResult) {
-      console.log("[LOGIN DEBUG] Rate limit exceeded");
       logRateLimitExceeded(ip);
       const resetTime = getRateLimitResetTime(ip);
       return NextResponse.json(
@@ -164,7 +154,6 @@ export async function POST(request: Request) {
     }
 
     const user = await prisma.user.findFirst();
-    console.log("[LOGIN DEBUG] User found:", !!user);
 
     if (!user) {
       // First time registration - verify against temp secret

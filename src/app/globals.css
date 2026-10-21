@@ -26,9 +26,61 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  summary,
+  label[for],
+  select,
+  input[type="checkbox"],
+  input[type="radio"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"],
+  input:disabled,
+  select:disabled {
+    cursor: not-allowed;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible,
+  summary:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 2px;
+  }
 }
 
 @layer utilities {
+  .wsi-hover-grow {
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .wsi-hover-grow:hover {
+    transform: scale(1.02);
+  }
+  @media (hover: hover) {
+    .wsi-hover-grow:hover {
+      transition-delay: 0.45s;
+    }
+  }
+
   .glass-card {
     background: color-mix(in srgb, var(--color-card-dark) 70%, transparent);
     -webkit-backdrop-filter: blur(16px);

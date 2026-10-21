@@ -15,13 +15,16 @@ export function ExpandableModal({ isOpen, onClose, children }: ExpandableModalPr
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
+        const timer = window.setTimeout(() => {
+            setMounted(true);
+        }, 0);
 
         if (isOpen) {
             document.body.style.overflow = "hidden";
         }
 
         return () => {
+            window.clearTimeout(timer);
             document.body.style.overflow = "unset";
         };
     }, [isOpen]);

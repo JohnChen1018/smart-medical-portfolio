@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { requireAuth } from "@/lib/api-auth";
+import { allowRequest, clientAddress, isPlainIp } from "@/lib/security";
 
 const commentSchema = z.object({
     projectId: z.string().min(1, "Project ID is required"),
@@ -16,8 +17,9 @@ interface LocationData {
 }
 
 async function getLocationFromIP(ip: string): Promise<LocationData | null> {
+    if (!isPlainIp(ip)) return null;
     try {
-        const response = await fetch(`https://ip-api.com/json/${ip}`);
+        const response = await fetch(`https://ip-api.com/json/${encodeURIComponent(ip)}`);
         if (!response.ok) return null;
         
         const data = await response.json();
@@ -51,6 +53,9 @@ function getClientIP(request: Request): string {
 }
 
 export async function POST(req: Request) {
+    if (!allowRequest(`comment:${clientAddress(req)}`, 6, 60 * 60 * 1000)) {
+        return NextResponse.json({ error: "嘗試太多次，請稍後再試" }, { status: 429 });
+    }
     try {
         const body = await req.json();
         const result = commentSchema.safeParse(body);

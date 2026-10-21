@@ -55,24 +55,24 @@ interface AboutCard {
 }
 
 const defaultPersonalInfo: PersonalInfo = {
-  name: "J Avindu Lakshan De Silva",
-  nickname: "lakshan",
-  title: "Full Stack Developer & DevOps Engineer",
-  bio: "Passionate developer with expertise in building scalable applications and managing cloud infrastructure.",
-  dateOfBirth: "2000/04/02",
-  nic: "200009300429",
-  address: "4C1, Ballawila, Kosmulla, Neluwa, Galle. zip 80082",
-  gender: "Male"
+  name: "",
+  nickname: "",
+  title: "",
+  bio: "",
+  dateOfBirth: "",
+  nic: "",
+  address: "",
+  gender: ""
 };
 
 const defaultContactInfo: ContactInfo = {
-  email: "lakshandesilva112@gmail.com",
-  email2: "lakshandesilva@proton.me",
-  phone: "+94717678199",
-  phone2: "+94787678199",
-  linkedin: "https://linkedin.com/in/username",
-  github: "https://github.com/username",
-  whatsapp: "https://wa.me/94717678199"
+  email: "",
+  email2: "",
+  phone: "",
+  phone2: "",
+  linkedin: "",
+  github: "",
+  whatsapp: ""
 };
 
 

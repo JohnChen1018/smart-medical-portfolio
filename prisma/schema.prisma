@@ -132,6 +132,7 @@ model PageVisit {
   country   String?
   city      String?
   ipAddress String?
+  device    String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -206,4 +207,101 @@ model User {
   isRegistered Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+/// 作品集入口帳號（訪客登記 + 使用者/管理員）
+model PortalAccount {
+  id             String    @id @default(cuid())
+  username       String    @unique
+  passwordHash   String?
+  displayName    String?
+  role           String    @default("user") // guest | user | admin
+  permissions    String    @default("accounts,backups,logs,content")
+  isActive       Boolean   @default(true)
+  loginCount     Int       @default(0)
+  isOnline       Boolean   @default(false)
+  lastLoginAt    DateTime?
+  lastLogoutAt   DateTime?
+  lastLoginIp    String?
+  lastDevice     String?
+  lastActivityAt DateTime?
+  totpSecret     String?
+  totpEnabled    Boolean   @default(false)
+  totpRecovery   String?
+  source         String    @default("平台設定")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model OperationLog {
+  id        String    @id @default(cuid())
+  accountId String?
+  username  String
+  role      String
+  action    String
+  detail    String?
+  ipAddress String?
+  device    String?
+  createdAt DateTime  @default(now())
+  endedAt   DateTime?
+}
+
+model MedicalSiteContent {
+  id           String   @id @default("default")
+  projectsJson Json
+  updatedAt    DateTime @updatedAt
+  updatedBy    String?
+}
+
+model BackupSchedule {
+  id        String   @id @default("default")
+  enabled   Boolean  @default(false)
+  runAt     String   @default("09:00")
+  runAt2    String   @default("21:00")
+  cloudPath String   @default("D:\\Backups\\smart-medical-portfolio\\s125727277\\cloud")
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model BlockedIp {
+  ip        String   @id
+  note      String?
+  createdBy String?
+  createdAt DateTime @default(now())
+}
+
+model BackupRecord {
+  id          String   @id @default(cuid())
+  type        String
+  result      String
+  message     String?
+  sizeBytes   Int?
+  durationMs  Int?
+  destination String
+  filePath    String?
+  trigger     String
+  createdAt   DateTime @default(now())
+}
+
+/// Survey 論文／開放資料收藏
+model ResearchBookmark {
+  id         String   @id @default(cuid())
+  accountId  String   @default("local")
+  topicId    String   @default("survey-paper")
+  source     String
+  externalId String
+  kind       String   @default("paper")
+  title      String
+  doi        String?
+  pmid       String?
+  url        String
+  authors    String   @default("[]")
+  year       String?
+  abstract   String?
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([accountId, source, externalId])
+  @@index([topicId])
 }

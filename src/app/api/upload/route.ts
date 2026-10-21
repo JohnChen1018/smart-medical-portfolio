@@ -92,7 +92,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Get file prefix from form data (default to "image")
-    const prefix = (formData.get("prefix") as string) || "image";
+    const rawPrefix = String(formData.get("prefix") || "image");
+    const prefix = rawPrefix.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 24) || "image";
     const extension = getFileExtension(file.type);
     const filename = generateUniqueFilename(prefix, extension);
     const filepath = path.join(UPLOAD_DIR, filename);

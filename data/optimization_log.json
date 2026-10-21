@@ -1,0 +1,35 @@
+[
+  {
+    "id": "837d5681-2a82-4b09-bd1d-ee2e959172be",
+    "startedAt": "2026-10-08T04:14:30.094Z",
+    "finishedAt": "2026-10-08T04:15:44.577Z",
+    "ok": false,
+    "message": "備份失敗，已中止優化：Command failed: powershell -NoProfile -ExecutionPolicy Bypass -File \"D:\\Projects\\smart-medical-portfolio\\scripts\\backup-portfolio.ps1\"\nCompress-Archive : �H \"3\" �޼ƩI�s \"Write\" �ɵo�ͨҥ~���p: \"��Ƭy�Ӫ��C\"\r\n��� D:\\Projects\\smart-medical-portfolio\\scripts\\backup-portfolio.ps1:33 �r��:1\r\n+ Compress-Archive -Path \"$DestDir\\*\" -DestinationPath $Archive -Force\r\n+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (:) [Compress-Archive], MethodInvocationException\r\n    + FullyQualifiedErrorId : IOException,Compress-Archive\r\n \r\n",
+    "backupFile": null,
+    "backupLabel": null,
+    "before": {
+      "nextBytes": 738893009,
+      "nextCacheBytes": 9851629,
+      "dataBytes": 5188380907,
+      "srcBytes": 1577729,
+      "apiCacheEntries": 0,
+      "buildMs": null
+    },
+    "after": {
+      "nextBytes": 738893009,
+      "nextCacheBytes": 9851629,
+      "dataBytes": 5188380907,
+      "srcBytes": 1577729,
+      "apiCacheEntries": 0,
+      "buildMs": null
+    },
+    "saved": {
+      "diskBytes": 0,
+      "buildMs": null,
+      "apiCacheEntries": 0
+    },
+    "steps": [
+      "備份專案（優化前強制）"
+    ]
+  }
+]

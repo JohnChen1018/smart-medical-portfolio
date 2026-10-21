@@ -1,22 +1,17 @@
-import { getSkillCategoriesWithSkills } from "@/lib/data";
-
 export async function ToolsOfTrade() {
-  const categories = await getSkillCategoriesWithSkills();
-  const allSkills = categories.flatMap(cat => cat.skills);
-
   const toolLogos = [
-    { name: 'Ansible', icon: '🔧' },
-    { name: 'Jenkins', icon: '🚀' },
-    { name: 'Docker', icon: '🐳' },
-    { name: 'Kubernetes', icon: '☸️' },
-    { name: 'Grafana', icon: '📊' },
-    { name: 'Prometheus', icon: '🔥' },
-    { name: 'Azure', icon: '☁️' },
-    { name: 'AWS', icon: '🛡️' },
-    { name: 'Terraform', icon: '🏗️' },
-    { name: 'Git', icon: '📦' },
-    { name: 'Python', icon: '🐍' },
-    { name: 'Bash', icon: '⌨️' },
+    { name: "Python", icon: "PY" },
+    { name: "PyTorch", icon: "PT" },
+    { name: "TensorFlow", icon: "TF" },
+    { name: "OpenCV", icon: "CV" },
+    { name: "Medical Imaging", icon: "MI" },
+    { name: "CNN", icon: "CN" },
+    { name: "U-Net", icon: "UN" },
+    { name: "ECG Signal", icon: "ECG" },
+    { name: "AUC / ROC", icon: "AUC" },
+    { name: "Recharts", icon: "CH" },
+    { name: "Next.js", icon: "NX" },
+    { name: "RWD", icon: "RW" },
   ];
 
   const duplicatedTools = [...toolLogos, ...toolLogos];
@@ -33,7 +28,9 @@ export async function ToolsOfTrade() {
                 key={`${tool.name}-${index}`}
                 className="flex items-center gap-2 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100 cursor-pointer"
               >
-                <span className="text-xl">{tool.icon}</span>
+                <span className="flex h-8 min-w-8 items-center justify-center rounded-lg border border-[#4ADE80]/20 bg-[#4ADE80]/10 px-2 text-xs font-bold text-[#4ADE80]">
+                  {tool.icon}
+                </span>
                 <span className="text-base font-semibold text-[#9CA3AF]">{tool.name}</span>
               </div>
             ))}

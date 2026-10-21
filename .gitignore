@@ -128,5 +128,21 @@ pids
 # Uploads directory (exclude from git)
 /public/uploads/
 
+# Generated patch thumbnails
+/data/lizard-thumbs/
+/public/lizard-thumbs/
+
+# Local-only bulk data. Slide photos stay on this computer; the public host cannot carry them.
+/data/backups/
+/data/lizard-patches/
+/data/mpox-dataset/
+/public/lizard/
+
+# Local tools and scratch files
+scripts/cloudflared.exe
+scripts/_tmp.zip
+scripts/_tmp_results.xlsx
+scripts/_tmp_xlsx/
+
 #Unwanted md files.
 PROJECT-STORY.md

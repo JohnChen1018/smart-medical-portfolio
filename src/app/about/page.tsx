@@ -10,6 +10,7 @@ import { SiGithub, SiLinkedin } from "react-icons/si";
 import Link from "next/link";
 import Image from "next/image";
 import { getIconComponent } from "@/lib/iconMap";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 interface AboutSettings {
   sections: {
@@ -64,6 +65,7 @@ export default function AboutPage() {
   const [aboutCards, setAboutCards] = useState<any[]>([]);
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const { t } = useI18n();
 
   useEffect(() => {
     const loadData = async () => {
@@ -111,7 +113,7 @@ export default function AboutPage() {
   if (loading) {
     return (
       <div className="bg-[#0B0F14] min-h-screen flex items-center justify-center">
-        <div className="text-[#9CA3AF]">Loading...</div>
+        <div className="text-[#9CA3AF]">{t.home.loading}</div>
       </div>
     );
   }
@@ -119,32 +121,79 @@ export default function AboutPage() {
   if (!settings) {
     return (
       <div className="bg-[#0B0F14] min-h-screen flex items-center justify-center">
-        <div className="text-[#9CA3AF]">Failed to load settings</div>
+        <div className="text-[#9CA3AF]">這頁暫時讀不到，請再整理一次。</div>
+      </div>
+    );
+  }
+
+  const name = profile?.name?.trim() || "";
+  const title = profile?.title?.trim() || "";
+  const email = profile?.email?.trim() || "";
+  const phone = [profile?.phone, profile?.phone2].map((value) => value?.trim()).filter(Boolean).join(" / ");
+  const photo = settings.hero?.profileImage?.trim() || "";
+  const badgeText = settings.hero?.availabilityBadge?.enabled
+    ? settings.hero.availabilityBadge.text?.trim() || ""
+    : "";
+  const bioLines = Array.isArray(settings.hero?.terminalBio)
+    ? settings.hero.terminalBio.filter((line) => line.trim())
+    : [];
+  const showResume = Boolean(settings.buttons?.downloadResume?.enabled && settings.buttons.downloadResume.text?.trim());
+  const showRoadmap = Boolean(settings.buttons?.seeRoadmap?.enabled && settings.buttons.seeRoadmap.text?.trim());
+  const hasHero = Boolean(photo || badgeText || name || title || email || phone || bioLines.length || showResume || showRoadmap);
+  const hasStats = Boolean(
+    settings.sections?.stats?.enabled && settings.stats?.some((stat) => stat.enabled && stat.label?.trim()),
+  );
+  const hasAbout = Boolean(settings.sections?.aboutMe?.enabled && aboutCards.length > 0);
+  const hasSkills = Boolean(settings.sections?.skills?.enabled && skills.length > 0);
+  const hasEducation = Boolean(settings.sections?.education?.enabled && education.length > 0);
+  const hasExperience = Boolean(settings.sections?.experience?.enabled && experience.length > 0);
+  const hasContact = Boolean(
+    settings.sections?.letsConnect?.enabled &&
+      [
+        settings.letsConnect?.email,
+        settings.letsConnect?.linkedin,
+        settings.letsConnect?.github,
+        settings.letsConnect?.whatsapp,
+      ].some((item) => item?.enabled && item.address?.trim()),
+  );
+
+  if (!hasHero && !hasStats && !hasAbout && !hasSkills && !hasEducation && !hasExperience && !hasContact) {
+    return (
+      <div className="bg-[#0B0F14] px-6 py-16">
+        <div className="mx-auto max-w-3xl">
+          <h1 className="text-3xl font-black text-[#E6EDF3]">{t.about.title}</h1>
+          <p className="mt-3 text-lg text-[#BFD2EA]">{t.about.empty}</p>
+          <Link href="/projects" className="mt-6 inline-flex rounded-full bg-[#4ADE80] px-5 py-2.5 font-bold text-[#0B0F14]">
+            {t.about.seeWorks}
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="bg-[#0B0F14] relative overflow-hidden">
+      {hasHero && (
       <section className="relative py-16 px-6 lg:px-8 border-b border-[#1F2937]">
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row gap-8 items-center">
+              {photo ? (
               <div className="relative shrink-0 group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#4ADE80] to-[#4ADE80] rounded-2xl blur opacity-15 group-hover:opacity-30 transition duration-1000"></div>
                 <div className="relative aspect-square w-40 md:w-52 rounded-xl overflow-hidden shadow-2xl bg-[#111827] border border-[#1F2937]">
-                  {settings.hero?.profileImage ? (
-                    <Image
-                      alt={profile?.name || 'J Avindu Lakshan De Silva'}
-                      className="w-full h-full object-cover transform transition duration-700 group-hover:scale-110"
-                      src={settings.hero.profileImage}
-                      fill
-                      priority
-                    />
-                  ) : null}
+                  <Image
+                    alt={name || "個人照片"}
+                    className="w-full h-full object-cover transform transition duration-700 group-hover:scale-110"
+                    src={photo}
+                    fill
+                    priority
+                  />
                 </div>
               </div>
+              ) : null}
 
               <div className="flex-1 text-center md:text-left">
+                {badgeText ? (
                 <Badge
                   variant="outline"
                   className={`mb-3 gap-2 transition-all duration-300 ${profile?.isOpenToWork
@@ -153,27 +202,36 @@ export default function AboutPage() {
                     }`}
                 >
                   <span className={`w-2 h-2 rounded-full ${profile?.isOpenToWork ? "bg-[#4ADE80] animate-pulse" : "bg-[#6B7280]"}`}></span>
-                  {settings.hero?.availabilityBadge?.text || "Available for Work"}
+                  {badgeText}
                 </Badge>
+                ) : null}
+                {name ? (
                 <h1 className="text-3xl md:text-4xl font-black tracking-tight text-[#E6EDF3] mb-2">
-                  {profile?.name || 'J Avindu Lakshan De Silva'}
+                  {name}
                 </h1>
+                ) : null}
+                {title ? (
                 <p className="text-lg text-[#4ADE80] font-mono font-medium mb-6">
-                  {profile?.title || 'DevOps Engineer & Cloud Specialist'}
+                  {title}
                 </p>
+                ) : null}
 
+                {(email || phone) ? (
                 <div className="mb-6 text-sm">
                   <p className="text-[#9CA3AF] flex items-center justify-center md:justify-start gap-2 flex-wrap">
-                    <FaEnvelope className="text-[#4ADE80]" />
-                    <span>{profile?.email || 'lakshandesilva112@gmail.com'}</span>
-                    <span className="text-[#6B7280] mx-2">|</span>
-                    <span>
-                      {profile?.phone || '+94...'}
-                      {profile?.phone2 && ` / ${profile.phone2}`}
-                    </span>
+                    {email ? (
+                      <>
+                        <FaEnvelope className="text-[#4ADE80]" />
+                        <span>{email}</span>
+                      </>
+                    ) : null}
+                    {email && phone ? <span className="text-[#6B7280] mx-2">|</span> : null}
+                    {phone ? <span>{phone}</span> : null}
                   </p>
                 </div>
+                ) : null}
 
+                {bioLines.length > 0 ? (
                 <div className="relative bg-[#0D1117] border border-[#1F2937] rounded-2xl p-0 font-mono text-sm overflow-hidden shadow-2xl mb-6">
                   <div className="flex gap-1.5 px-4 py-3 border-b border-[#1F2937] bg-[#0B0F14]">
                     <div className="w-2.5 h-2.5 rounded-full bg-red-500"></div>
@@ -182,24 +240,24 @@ export default function AboutPage() {
                   </div>
                   <div className="p-6">
                     <p className="text-[#9CA3AF] leading-relaxed">
-                      {Array.isArray(settings.hero?.terminalBio) ? settings.hero.terminalBio.map((line, index) => (
+                      {bioLines.map((line, index) => (
                         <span key={index}>
                           {line.startsWith('$') ? (
                             <span className="text-[#9CA3AF]">{line}</span>
-                          ) : line.startsWith('>') ? (
-                            <span className="text-[#4ADE80]">{line}</span>
                           ) : (
                             <span className="text-[#4ADE80]">{line}</span>
                           )}
                           <br />
                         </span>
-                      )) : null}
+                      ))}
                     </p>
                   </div>
                 </div>
+                ) : null}
 
+                {(showResume || showRoadmap) ? (
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                  {settings.buttons?.downloadResume?.enabled && (
+                  {showResume && (
                     <Link href={settings.buttons.downloadResume.link || '#'} prefetch={false}>
                       <Button variant="primary" size="md">
                         <FaEnvelope />
@@ -207,7 +265,7 @@ export default function AboutPage() {
                       </Button>
                     </Link>
                   )}
-                  {settings.buttons?.seeRoadmap?.enabled && (
+                  {showRoadmap && (
                     <Link href={settings.buttons.seeRoadmap.link || '#'}>
                       <Button variant="outline" size="md">
                         <FaChartBar />
@@ -216,12 +274,14 @@ export default function AboutPage() {
                     </Link>
                   )}
                 </div>
+                ) : null}
               </div>
             </div>
           </div>
         </section>
+      )}
 
-      {settings.sections?.stats?.enabled && (
+      {settings.sections?.stats?.enabled && settings.stats?.some((stat) => stat.enabled && stat.label?.trim()) && (
         <section className="py-3 border-b border-[#1F2937] bg-[#0D1117]">
           <div className="max-w-5xl mx-auto px-6">
             <div className="grid grid-cols-4 gap-4">
@@ -244,7 +304,7 @@ export default function AboutPage() {
         </section>
       )}
 
-      {settings.sections?.aboutMe?.enabled && (
+      {settings.sections?.aboutMe?.enabled && aboutCards.length > 0 && (
         <section id="about-me" className="py-16 px-6 lg:px-8 relative">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold text-[#E6EDF3] mb-6 text-center">
@@ -272,7 +332,7 @@ export default function AboutPage() {
         </section>
       )}
 
-      {settings.sections?.skills?.enabled && (
+      {settings.sections?.skills?.enabled && skills.length > 0 && (
         <section id="skills" className="py-16 px-6 lg:px-8 bg-[#0D1117] border-t border-[#1F2937]">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold text-[#E6EDF3] mb-6 text-center">
@@ -308,7 +368,7 @@ export default function AboutPage() {
         </section>
       )}
 
-      {settings.sections?.education?.enabled && (
+      {settings.sections?.education?.enabled && education.length > 0 && (
         <section id="education" className="py-24 px-6 lg:px-8 bg-[#0D1117] border-t border-[#1F2937]">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-[#E6EDF3] mb-8 text-center">
@@ -336,7 +396,7 @@ export default function AboutPage() {
         </section>
       )}
 
-      {settings.sections?.experience?.enabled && (
+      {settings.sections?.experience?.enabled && experience.length > 0 && (
         <section id="experience" className="py-24 px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-[#E6EDF3] mb-8 text-center">
@@ -354,7 +414,7 @@ export default function AboutPage() {
                       <p className="text-[#4ADE80] font-medium">{exp.company}</p>
                     </div>
                     <Badge variant="primary" className="mt-2 md:mt-0">
-                      {exp.startDate} - {exp.isCurrent ? "Present" : exp.endDate}
+                      {exp.startDate} - {exp.isCurrent ? "目前" : exp.endDate}
                     </Badge>
                   </div>
                   <p className="text-[#9CA3AF] leading-relaxed text-sm">
@@ -367,15 +427,17 @@ export default function AboutPage() {
         </section>
       )}
 
-      {settings.sections?.letsConnect?.enabled && (
+      {settings.sections?.letsConnect?.enabled && [
+        settings.letsConnect?.email,
+        settings.letsConnect?.linkedin,
+        settings.letsConnect?.github,
+        settings.letsConnect?.whatsapp,
+      ].some((item) => item?.enabled && item.address?.trim()) && (
         <section id="contact" className="py-16 px-6 lg:px-8 bg-[#0D1117] border-t border-[#1F2937]">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-[#E6EDF3] mb-8 text-center">
               {settings.sections?.letsConnect?.title?.replace(/'/g, "'")}
             </h2>
-            <p className="text-[#9CA3AF] text-center mb-8 max-w-xl mx-auto leading-relaxed">
-              I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out through any of the platforms below.
-            </p>
             <div className="flex flex-wrap justify-center gap-4">
               {settings.letsConnect?.email?.enabled && (
                 <a

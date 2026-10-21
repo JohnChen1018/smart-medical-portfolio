@@ -3,6 +3,7 @@ import { unlink } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
 import { requireAuth } from "@/lib/api-auth";
+import { isInsideDir } from "@/lib/security";
 
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 
@@ -47,11 +48,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Construct full file path
-    const fullPath = path.join(process.cwd(), "public", normalizedPath);
-
-    // Additional security check: ensure resolved path is still in uploads
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    if (!fullPath.startsWith(uploadsDir)) {
+    const uploadsDir = path.resolve(process.cwd(), "public", "uploads");
+    const fullPath = path.resolve(uploadsDir, path.basename(normalizedPath));
+    if (!isInsideDir(uploadsDir, fullPath)) {
       return NextResponse.json(
         { success: false, error: "Access denied - invalid path" },
         { status: 403 }
