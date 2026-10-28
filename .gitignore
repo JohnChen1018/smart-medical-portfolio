@@ -128,15 +128,13 @@ pids
 # Uploads directory (exclude from git)
 /public/uploads/
 
-# Generated patch thumbnails
+# Generated copies. The site serves public/lizard and public/lizard-thumbs.
 /data/lizard-thumbs/
-/public/lizard-thumbs/
 
-# Local-only bulk data. Slide photos stay on this computer; the public host cannot carry them.
+# Local-only bulk data.
 /data/backups/
 /data/lizard-patches/
 /data/mpox-dataset/
-/public/lizard/
 
 # Local tools and scratch files
 scripts/cloudflared.exe

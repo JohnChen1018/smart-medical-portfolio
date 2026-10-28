@@ -20,7 +20,9 @@ export async function GET(
     return NextResponse.json({ error: "非法路徑" }, { status: 400 });
   }
 
-  const filePath = path.join(lizardPatchImagesRoot(), filename);
+  const bundled = path.join(process.cwd(), "public", "lizard", filename);
+  const external = path.join(lizardPatchImagesRoot(), filename);
+  const filePath = existsSync(bundled) ? bundled : external;
   if (!existsSync(filePath)) {
     return NextResponse.json({ error: "找不到影像" }, { status: 404 });
   }
